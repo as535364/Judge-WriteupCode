@@ -1,6 +1,6 @@
 //就懶得打一堆 if 所以直接用 sort
 #include <iostream>
-#include<algorithm>
+#include <algorithm>
 using namespace std;
 int main() {
 	int tmp[3],n;
