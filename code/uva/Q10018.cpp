@@ -3,6 +3,9 @@
 reverse 的作法就是取原先數值的最後一位加上去
 然後 * 10
 在找最後一位加上去
+
+reverse 以上
+
 直到 tmp == reverse(tmp) 為止
 */
 #include <iostream>
