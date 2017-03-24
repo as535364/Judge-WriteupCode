@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	list <int>a[100005];
+	int n,m;cin>>n>>m;
+	while(m--){
+		string s;cin>>s;
+		if(s=="ADD"){
+			int i,id;cin>>i>>id;
+			a[i].push_back(id);
+		}
+		else if(s=="LEAVE"){
+			int i;cin>>i;
+			if(a[i].empty())printf("queue %d is empty!\n",i);
+			else a[i].pop_front();
+		}
+		else if(s=="JOIN"){
+			int i,j;cin>>i>>j;
+			std::list<int>::iterator it;it = a[j].end();
+			a[j].splice (it,a[i]);
+		}
+	}
+	for(int i=1;i<=n;i++){
+		printf("queue %d:",i);
+		if(a[i].empty())printf(" empty",i);
+		else {
+			for(list<int>::iterator j=a[i].begin();j!=a[i].end();j++){
+				cout<<' '<<*j;
+			}
+		}
+		printf("\n");
+	}
+	return 0;
+}

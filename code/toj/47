@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+	set<int>s;
+	int t;cin>>t;
+	while(t--){
+		string cmd;cin>>cmd;
+		int tmp;cin>>tmp;
+		if(cmd=="insert"){
+			s.insert(tmp);
+		}
+		else if(cmd=="delete"){
+			s.erase(tmp);
+		}
+		else if(cmd=="query"){
+			set<int>::iterator it1,it2;
+			it1 = it2 = s.find(tmp);
+			if(it1==s.end()){
+				it1 = it2 = s.lower_bound(tmp);//it1 >
+				it2--;//it2 <
+				int a = *it1 , b = *it2;
+				if(abs(a-tmp)<abs(b-tmp))cout<<a<<'\n';
+				else if(abs(a-tmp)>abs(b-tmp))cout<<b<<'\n';
+				else cout<<b<<' '<<a<<'\n';
+			}
+			else cout<<*it1<<'\n';
+		}
+	}
+	return 0;
+}

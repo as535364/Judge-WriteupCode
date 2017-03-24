@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+#include <cstring>
+#define MAXN 100005
+int box[MAXN]={1},parent[MAXN]={0};
+using namespace std;
+void reset(){
+	for(int i=0;i<MAXN;i++){box[i]=1;parent[i]=0;}
+}
+void dfs(int index,int n){
+	//printf("dfs:: index:%d n:%d\n",index,n);
+	if(parent[index]){
+		//printf("toadd::%d\n",parent[index]);
+		int toadd = parent[index];
+		toadd[box] += n;
+		dfs(toadd,n);
+	}
+	else return ;
+}
+int main() {
+	int t;cin>>t;
+	while(t--){
+		reset();
+		//for(int i=0;i<MAXN;i++)if(parent[i])cout<<parent[i]<<endl;
+		///************************************************
+		int n,m,q;cin>>n>>m;
+		while(m--){
+			int x,y;cin>>x>>y;
+			parent[y] = x;
+			//printf("parent[%d] = %d\n",y,x);
+			//printf("dfs:: index:%d n:%d\n",y,box[y]);
+			dfs(y,box[y]);
+			//printf("box[%d]=%d\n",x,box[x]);
+		}
+		cin>>q;
+		while(q--){
+			int tmp;cin>>tmp;
+			cout<<box[tmp]<<'\n';
+		}
+		//************************************************/
+	}
+	return 0;
+}

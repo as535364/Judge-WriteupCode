@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+#define MAXN 100005
+using namespace std;  
+vector <int>ship[MAXN];
+bool vis[MAXN] ={0};
+int color[MAXN]={0};
+bool flag = true;
+// DFS
+void dfs(int x,int c){
+	vis[x] = 1;color[x] = c;
+    for(int i=0;i<ship[x].size();i++){
+        int tmp = ship[x][i];
+        if(color[tmp]==c)flag = 0;
+        if(!vis[tmp]){dfs(tmp,c>0?-1:1);}
+    }
+}
+int main(){
+	int n;
+	while(cin>>n&&n!=0){
+		memset(vis,0,sizeof(vis));memset(color,0,sizeof(color));flag = 1;
+		for(int i=0;i<MAXN;i++)ship[i].clear();
+		int m;cin>>m;
+		while(m--){
+			int a,b;cin>>a>>b;
+			ship[a].push_back(b);
+			ship[b].push_back(a);
+		}
+		for(int i=0;i<n;i++){
+			if(!vis[i]){dfs(i,1);}
+		}
+		if(flag)cout<<"NORMAL.\n";
+		else cout<<"RAINBOW.\n";
+	}
+}

@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+#define MAXN 3500
+using namespace std;  
+vector <int>ship[MAXN];
+bool vis[MAXN] ={0};
+// DFS
+void dfs(int x){
+	//printf("dfs:%d ship[%d].size()=%d\n",x,x,ship[x].size());
+	vis[x] = 1;
+    for(int i=0;i<ship[x].size();i++){
+        int tmp = ship[x][i];
+        if(!vis[tmp]){dfs(tmp);}//printf("dfs:%d\n",tmp);
+    }
+}
+int main(){
+	int t;cin>>t;
+	while(t--){
+		memset(vis,0,sizeof(vis));
+		for(int i=0;i<MAXN;i++)ship[i].clear();
+		int n,m,cnt=0;cin>>n>>m;
+		while(m--){
+			int a,b;cin>>a>>b;
+			ship[a].push_back(b);
+			ship[b].push_back(a);
+		}
+		for(int i=0;i<n;i++){
+			if(!vis[i]){dfs(i);cnt++;}
+			//printf("cnt:%d\n",cnt);
+		}
+		cout<<cnt<<'\n';
+	}
+}

@@ -1,0 +1,45 @@
+#include <iostream>
+#define MAXN 1005
+char map[MAXN][MAXN];
+using namespace std;
+void dfs(int x,int y,int h,int w){
+	//printf("dfs: x:%d,y:%d,h:%d,w:%d\n",x,y,h,w);
+	int xd[] = {-1,0,1,0},yd[] = {0,1,0,-1};
+	map[x][y] = '#';
+	for(int i=0;i<4;i++){
+		int dx = xd[i],dy = yd[i],nx = x + dx,ny = y + dy;
+		if(nx>=1&&nx<=w&&ny>=1&&ny<=h&&map[nx][ny]=='.')dfs(nx,ny,h,w);
+	}
+}
+void printmap(int h,int w){
+	for(int i=1;i<=h;i++){
+		for(int j=1;j<=w;j++){
+			cout<<map[j][i];
+		}
+		cout<<endl;
+	}
+}
+int main() {
+	int t;cin>>t;
+	while(t--){
+		int h,w,ans=0;cin>>h>>w;
+		for(int i=0;i<MAXN;i++){
+			for(int j=0;j<MAXN;j++){
+				map[i][j] = '#';
+			}
+		}
+		for(int i=1;i<=h;i++){
+			for(int j=1;j<=w;j++){
+				cin>>map[j][i];
+			}
+		}
+		//printmap(10,10);
+		for(int i=1;i<=h;i++){
+			for(int j=1;j<=w;j++){
+				if(map[j][i]=='.'){dfs(j,i,h,w);ans++;}//printmap(h,w);cout<<"\n\n";
+			}
+		}
+		cout<<ans<<endl;
+		}
+		return 0;
+}

@@ -1,0 +1,53 @@
+#include <iostream>
+#include <queue>
+#include <cstring>
+using namespace std;
+#define MAXN 105
+char map[MAXN][MAXN];//y x
+bool vis[MAXN][MAXN];//y x
+struct dot{
+	int y,x,step;
+};
+void reset(){
+	for(int i=0;i<MAXN;i++){
+		for(int j=0;j<MAXN;j++){
+			map[i][j] = '#';
+			vis[i][j] = false;
+		}
+	}
+}
+int main() {
+	int n;
+	while(cin>>n&&n!=0){
+		reset();
+		queue<dot>q;bool flag = 0;
+		int dx[] = {0,1,0,-1},dy[] = {1,0,-1,0};
+		for(int i=0;i<n;i++)cin>>map[i];
+		/***********************************************
+		for(int i=0;i<n;i++){
+			for(int j=0;j<strlen(map[i]);j++){
+				std::cout<<map[i][j];
+			}
+			std::cout<<'\n';
+		}
+		***********************************************/
+		for(int i=0;i<n;i++){
+			int len = strlen(map[i]);
+			for(int j=0;j<len;j++){
+				if(map[i][j]=='K'){q.push((dot){i,j,0});break;}
+			}
+		}
+		while(!q.empty()){
+			int x = q.front().x , y = q.front().y , step = q.front().step;
+			vis[y][x] = 1;
+			if(map[y][x]=='@'){flag = 1;break;}
+			for(int i=0;i<4;i++){
+				int nx = x + dx[i] , ny = y + dy[i];
+				if((map[ny][nx]=='.'||map[ny][nx]=='@')&&!vis[ny][nx]){q.push((dot){ny,nx,step+1});vis[ny][nx] = 1;}//printf("push x:%d y:%d\n",nx,ny);
+			}
+			q.pop();
+		}
+		if(flag)cout<<q.front().step<<'\n';
+		else cout<<"= =\"\n";
+	}
+}

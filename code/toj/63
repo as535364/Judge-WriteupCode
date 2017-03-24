@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+#define MAXN 15
+//using namespace std;
+int stack[6],lucky[MAXN],k;
+int C[]={0,0,0,0,0,0,1,7,28,84,210,462,924,1716};
+std::queue <int>q;
+void dfs(int depth,int last){
+	//printf("depth:%d last:%d\n",depth,last);
+	if(depth==6){
+		for(int i=0;i<6;i++){q.push(stack[i]);}//std::cout<<;if(i!=5)std::cout<<' ';
+	}
+	else {
+		for(int i=last+1;i<k;i++){
+			stack[depth] = lucky[i];
+			dfs(depth+1,i);
+		}
+	}
+	return ;
+}
+void print(int n){
+	while(n--){
+		for(int i=0;i<6;i++){
+			std::cout<<q.front();
+			q.pop();
+			if(i!=5)std::cout<<' ';
+		}
+		std::cout<<'\n';
+	}
+}
+int main(){
+	std::queue<int>s;
+	//freopen ("1.out","w",stdout);freopen ("1.in","r",stdin);
+	while(std::cin>>k){
+		for(int i=0;i<k;i++)std::cin>>lucky[i];
+		dfs(0,-1);
+		if(k==0)s.push(0);
+		s.push(C[k]);
+	}
+	while(!s.empty()){
+		print(s.front());
+		s.pop();
+		if(s.front()!=0)std::cout<<'\n';
+		else return 0;
+	}
+}

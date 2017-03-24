@@ -1,0 +1,19 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int>a,b;//先序 中序 
+void dfs(int as, int ae, int bs, int be){//先序起始，先序中止，中序起點，中序中止
+	int i;
+	if(as>ae)return;
+	for(i=bs;b[i]!=a[as];i++);
+	dfs(as+1, ae-be+i, bs, i-1);//左子樹
+	dfs(ae-be+i+1, ae, i+1, be);//右子樹
+	cout<<a[as]<<'\n';//root
+}  
+int main(){
+	int n;
+	while(cin>>n){
+		a.push_back(n);b.push_back(n);
+	}
+	sort(b.begin(),b.end());
+	dfs(0, a.size()-1, 0, a.size()-1);
+}  

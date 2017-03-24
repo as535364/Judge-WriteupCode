@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	int t;cin>>t;
+	while(t--){
+		queue<int>v;stack<int>s;
+		int n,num = 1;cin>>n;
+		for(int i=0;i<n;i++){
+			int tmp;cin>>tmp;
+			v.push(tmp);
+		}
+		while(num<=n){
+			if(s.empty()){s.push(num++);}//cout<<"push:"<<num-1<<endl;
+			if(v.front()==s.top()){s.pop();v.pop();}//printf("Pop queue:%d stack:%d\n",v.front(),s.top());
+			else {s.push(num++);}//cout<<"push:"<<num-1<<endl;
+		}
+		while(!v.empty()&&!s.empty()&&v.front()==s.top()){s.pop();v.pop();}//printf("Pop queue:%d stack:%d\n",v.front(),s.top());
+		if(!s.empty())cout<<"No\n";
+		else cout<<"Yes\n";
+	}
+}

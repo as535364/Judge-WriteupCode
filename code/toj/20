@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+using namespace std;
+int num[1000000]={0};//num[j] j 的組別 1~n 預設組別為 第 0 組 
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+	int n,task=1;
+	while(cin>>n){
+		cout<<"Line #"<<task++<<'\n';
+		bool group_exist[1005]={0};//存是否有同團也在排隊
+		memset(num,0,sizeof(num));
+		string cmd;
+		queue<int>q[1005],group;
+		for(int i=1;i<=n;i++){
+			int people_num;cin>>people_num;//該組人數 
+			for(int j=1;j<=people_num;j++){
+				int tmp;cin>>tmp;//該人編號
+				num[tmp] = i;
+			}
+		}
+		while(cin>>cmd&&cmd!="STOP"){
+			if(cmd=="ENQUEUE"){
+				int tmp;cin>>tmp;//ENQUEUE 該編號的人
+				int tmp_group=num[tmp];//tmp 的組別
+				//printf("%d 的組別是 %d\n",tmp,tmp_group);
+				if(tmp_group==0){//邊緣人
+					group.push(-tmp);
+				}
+				else {
+					if(!group_exist[tmp_group]){group.push(tmp_group);group_exist[tmp_group]=1;}
+					q[tmp_group].push(tmp);
+				}
+			}
+			else if(cmd=="DEQUEUE"){//DEQUEUE 最前端的人 
+				int gro_1 = group.front();//第一組可領到
+				//printf("最接近的組別是 第 %d 組\n",gro_1);
+				if(gro_1<0){//邊緣人
+					cout<<-gro_1<<'\n';
+					group.pop();
+				}
+				else {
+					cout<<q[gro_1].front()<<'\n';
+					q[gro_1].pop();
+					if(q[gro_1].empty()&&!group.empty()){group.pop();group_exist[gro_1]=0;}//如果該組沒人就 pop 掉 
+				}
+			}
+		}
+	}
+}
